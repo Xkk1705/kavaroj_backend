@@ -7,11 +7,12 @@ import com.xukang.kavarioj.common.ErrorCode;
 import com.xukang.kavarioj.common.ResultUtils;
 import com.xukang.kavarioj.exception.BusinessException;
 import com.xukang.kavarioj.exception.ThrowUtils;
+import com.xukang.kavarioj.juidge.service.JudgeService;
 import com.xukang.kavarioj.model.dto.questionsubmit.QuestionSubmitAddRequest;
 import com.xukang.kavarioj.model.dto.questionsubmit.QuestionSubmitQueryRequest;
 import com.xukang.kavarioj.model.entity.QuestionSubmit;
 import com.xukang.kavarioj.model.entity.User;
-import com.xukang.kavarioj.model.enums.QuestionSubmitEnum;
+import com.xukang.kavarioj.model.enums.QuestionSubmitStatusEnum;
 import com.xukang.kavarioj.model.vo.QuestionSubmitVO;
 import com.xukang.kavarioj.service.QuestionSubmitService;
 import com.xukang.kavarioj.service.UserService;
@@ -37,6 +38,9 @@ public class QuestionSubmitController {
     @Resource
     private UserService userService;
 
+    @Resource
+    private JudgeService judgeService;
+
     /**
      * 创建
      *
@@ -53,13 +57,13 @@ public class QuestionSubmitController {
         BeanUtils.copyProperties(questionSubmitAddRequest, questionSubmit);
         questionSubmitService.validQuestionSubmit(questionSubmitAddRequest, true);
         User loginUser = userService.getLoginUser(request);
-        //todo 判断题目是否存在
         questionSubmit.setUserId(loginUser.getId());
-        questionSubmit.setStatus(QuestionSubmitEnum.LOADING.getValue());
+        questionSubmit.setStatus(QuestionSubmitStatusEnum.WAITING.getValue());
         boolean result = questionSubmitService.save(questionSubmit);
-        ThrowUtils.throwIf(!result, ErrorCode.OPERATION_ERROR);
-        long newQuestionSubmitId = questionSubmit.getId();
-        return ResultUtils.success(newQuestionSubmitId);
+        ThrowUtils.throwIf(!result, ErrorCode.OPERATION_ERROR, "提交问题失败");
+        // 返回判题信息
+        Long questionSubmitVOId = judgeService.doJudge(questionSubmit.getId());
+        return ResultUtils.success(questionSubmitVOId);
     }
 
     /**

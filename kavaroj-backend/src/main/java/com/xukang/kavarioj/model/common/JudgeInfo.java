@@ -10,15 +10,20 @@ public class JudgeInfo {
     /**
      * 执行时间
      */
-    private Long LimitTime;
+    private Long limitTime;
     /**
      * 占用内存
      */
-    private Long LimitMemory;
+    private Long limitMemory;
 
     /**
-     * 执行返回信息
+     * 代码返回信息
      */
     private String exeInfo;
+
+    /**
+     * 执行提示
+     */
+    private String message;
 
 }

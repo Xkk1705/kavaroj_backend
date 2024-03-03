@@ -3,18 +3,12 @@ package com.xukang.kavarioj.model.dto.questionsubmit;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * 创建请求
  */
 @Data
 public class QuestionSubmitAddRequest implements Serializable {
-
-    /**
-     * id
-     */
-    private Long id;
 
     /**
      * 问题 id

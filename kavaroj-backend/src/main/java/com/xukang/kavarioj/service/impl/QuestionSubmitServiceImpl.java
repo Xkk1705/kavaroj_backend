@@ -7,23 +7,21 @@ import com.xukang.kavarioj.common.ErrorCode;
 import com.xukang.kavarioj.constant.CommonConstant;
 import com.xukang.kavarioj.exception.BusinessException;
 import com.xukang.kavarioj.exception.ThrowUtils;
-
+import com.xukang.kavarioj.mapper.QuestionSubmitMapper;
 import com.xukang.kavarioj.model.dto.questionsubmit.QuestionSubmitAddRequest;
 import com.xukang.kavarioj.model.dto.questionsubmit.QuestionSubmitQueryRequest;
-import com.xukang.kavarioj.model.entity.*;
+import com.xukang.kavarioj.model.entity.QuestionSubmit;
+import com.xukang.kavarioj.model.entity.User;
 import com.xukang.kavarioj.model.enums.LanguageEnum;
 import com.xukang.kavarioj.model.vo.QuestionSubmitVO;
-import com.xukang.kavarioj.model.vo.UserVO;
 import com.xukang.kavarioj.service.QuestionSubmitService;
-import com.xukang.kavarioj.mapper.QuestionSubmitMapper;
 import com.xukang.kavarioj.utils.SqlUtils;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.*;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**

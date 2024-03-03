@@ -10,10 +10,10 @@ public class JudgeConfig {
     /**
      * 执行时间
      */
-    private Long LimitTime;
+    private Long limitTime;
     /**
      * 占用内存
      */
-    private Long LimitMemory;
+    private Long limitMemory;
 
 }
