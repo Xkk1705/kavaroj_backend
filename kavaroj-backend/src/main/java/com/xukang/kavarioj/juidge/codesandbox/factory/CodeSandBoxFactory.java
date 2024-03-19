@@ -1,8 +1,8 @@
 package com.xukang.kavarioj.juidge.codesandbox.factory;
 
 import com.xukang.kavarioj.juidge.codesandbox.CodesSandBox;
-import com.xukang.kavarioj.juidge.codesandbox.impl.CodesSandBoxDefaultImpl;
 import com.xukang.kavarioj.juidge.codesandbox.impl.CodesSandBoxExampleImpl;
+import com.xukang.kavarioj.juidge.codesandbox.impl.CodesSandBoxRemoteImpl;
 import com.xukang.kavarioj.juidge.codesandbox.impl.CodesSandBoxThreadPartImpl;
 
 
@@ -14,8 +14,8 @@ public class CodeSandBoxFactory {
         switch (type) {
             case "example":
                 return new CodesSandBoxExampleImpl();
-            case "default":
-                return new CodesSandBoxDefaultImpl();
+            case "remote":
+                return new CodesSandBoxRemoteImpl();
             case "thirdPart":
                 return new CodesSandBoxThreadPartImpl();
             default:

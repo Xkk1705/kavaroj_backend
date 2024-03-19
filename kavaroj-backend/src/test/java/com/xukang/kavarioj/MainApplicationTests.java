@@ -7,6 +7,10 @@ import javax.annotation.Resource;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * 主类测试
  */
@@ -22,3 +26,4 @@ class MainApplicationTests {
     }
 
 }
+

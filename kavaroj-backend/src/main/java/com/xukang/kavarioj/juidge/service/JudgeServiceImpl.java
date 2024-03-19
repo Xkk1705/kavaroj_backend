@@ -99,6 +99,7 @@ public class JudgeServiceImpl implements JudgeService {
         judgeInfo = judgeManager.getLanguageStrategy().judge(judgeContext);
         if (!"AC".equals(judgeInfo.getMessage())) {//判题失败
             String judgeInfoStr = JSONUtil.toJsonStr(judgeInfo);
+
             questionSubmit.setJudgeInfo(judgeInfoStr);
             questionSubmit.setStatus(QuestionSubmitStatusEnum.FAILED.getValue());
             questionSubmitService.updateById(questionSubmit);
@@ -110,7 +111,7 @@ public class JudgeServiceImpl implements JudgeService {
         questionSubmit.setJudgeInfo(judgeInfoStr);
         // 更新判题信息和状态
         boolean update = questionSubmitService.updateById(questionSubmit);
-        if (update) {
+        if (!update) {
             throw new BusinessException(ErrorCode.SYSTEM_ERROR, "更新questionSubmit失败");
         }
         return questionSubmitId;

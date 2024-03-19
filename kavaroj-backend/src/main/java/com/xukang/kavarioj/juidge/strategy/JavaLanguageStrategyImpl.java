@@ -27,7 +27,9 @@ public class JavaLanguageStrategyImpl implements LanguageStrategy {
         Long limitMemory = judgeConfig.getLimitMemory();// 问题限制内存
         Long execTime = executeResponse.getJudgeInfo().getLimitTime();// 代码沙箱执行时间
         Long execMemory = executeResponse.getJudgeInfo().getLimitMemory();// 代码沙箱执行内存
-        // 这里的执行时间根据不同的编程语言 有不同的效率
+        String exeInfo = executeResponse.getJudgeInfo().getExeInfo();// 代码沙箱执返回信息
+        judgeInfo.setExeInfo(exeInfo);
+// 这里的执行时间根据不同的编程语言 有不同的效率
 
         if (execTime - JAVA_EXEC_TIME > limitTime) {
             judgeInfo.setMessage("执行题目超时");
