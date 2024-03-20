@@ -17,11 +17,14 @@ import com.xukang.kavarioj.model.vo.QuestionSubmitVO;
 import com.xukang.kavarioj.service.QuestionSubmitService;
 import com.xukang.kavarioj.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -40,6 +43,9 @@ public class QuestionSubmitController {
 
     @Resource
     private JudgeService judgeService;
+
+    @Resource
+    private RabbitTemplate rabbitTemplate;
 
     /**
      * 创建
@@ -61,9 +67,12 @@ public class QuestionSubmitController {
         questionSubmit.setStatus(QuestionSubmitStatusEnum.WAITING.getValue());
         boolean result = questionSubmitService.save(questionSubmit);
         ThrowUtils.throwIf(!result, ErrorCode.OPERATION_ERROR, "提交问题失败");
-        // 返回判题信息
-        Long questionSubmitVOId = judgeService.doJudge(questionSubmit.getId());
-        return ResultUtils.success(questionSubmitVOId);
+        Long questionSubmitId = questionSubmit.getId();
+        // 把提交题目id交给消息队列去判题
+        log.info("当前时间为：{}，当前消息为{}", new Date().toString(), questionSubmitId);
+        rabbitTemplate.convertAndSend("exchange_x", "XA", "消息为ttl为10的消息" + questionSubmitId);
+//        Long questionSubmitVOId = judgeService.doJudge(questionSubmit.getId());
+        return ResultUtils.success(questionSubmitId);
     }
 
     /**

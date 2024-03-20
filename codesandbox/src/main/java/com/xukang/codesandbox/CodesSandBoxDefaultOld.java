@@ -21,6 +21,7 @@ import java.util.*;
  * 默认自己实现的代码沙箱
  */
 @Slf4j
+@Deprecated
 //@Service
 public class CodesSandBoxDefaultOld implements CodeSandBox {
     public static void main(String[] args) throws IOException, InterruptedException {

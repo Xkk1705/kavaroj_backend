@@ -23,6 +23,11 @@ spring:
     url: jdbc:mysql://localhost:3306/karvaroj
     username: root
     password: 123456789
+  # rabbit mq
+  rabbitmq:
+    username: xukang
+    password: 123456
+    addresses: 10.18.68.61:55555
   # Redis 配置
   # todo 需替换配置，然后取消注释
   #  redis:
@@ -90,5 +95,6 @@ cos:
     region: xxx
     bucket: xxx
   # 代码沙箱类型
+
 codesandbox:
   type: remote
